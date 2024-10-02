@@ -1,2 +1,3 @@
 # cutthroat-coding-c
-Leetcode, data structures, and algorithms in C
+
+Me learning leetcode, data structures, and algorithms in C.
