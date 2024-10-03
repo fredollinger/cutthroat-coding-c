@@ -32,6 +32,9 @@ struct node* insert_after(int key, struct node *head) {
     return neu; // return pointer to the current node
 }
 
+struct node* delete_after(int key, struct node *head) {
+}
+
 void print_linked_list(struct node *head) {
     // printf("head %p -> %p %i \n", head, head->next, head->key);
     // printf("one %p -> %p %i \n", head->next, head->next->next, head->next->key);
@@ -48,7 +51,9 @@ void print_linked_list(struct node *head) {
 
 int main() {
     struct node *head = linked_list_initialize();
-    struct node *ll = insert_after(13, head);
+    struct node *ll = insert_after(1, head);
+    ll = insert_after(2, ll);
+    ll = insert_after(3, ll);
     print_linked_list(head);
     return 0;
 }
