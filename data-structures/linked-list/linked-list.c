@@ -32,14 +32,30 @@ struct node* insert_after(int key, struct node *head) {
     return neu; // return pointer to the current node
 }
 
+struct node* search(int key, struct node *head) {
+    struct node *ptr = head;
+    while (ptr != ptr->next) {
+        if (key == ptr->key) {
+            return ptr;
+        }
+        ptr = ptr->next;
+    }
+    return NULL;
+}
+
 struct node* delete_after(int key, struct node *head) {
+    struct node *ptr = head;
+    while (ptr != ptr->next) {
+        if (key == ptr->key) {
+	    struct node *del = ptr->next;
+            ptr->next = ptr->next->next;
+	    free(del);
+        }
+        ptr = ptr->next;
+    }
 }
 
 void print_linked_list(struct node *head) {
-    // printf("head %p -> %p %i \n", head, head->next, head->key);
-    // printf("one %p -> %p %i \n", head->next, head->next->next, head->next->key);
-    // printf("z %p -> %p %i \n", head->next->next, head->next->next->next, head->next->next->key);
-
     struct node *next = head->next;
     while(next != next->next) {
         printf("key: %i \n", next->key);
@@ -54,6 +70,14 @@ int main() {
     struct node *ll = insert_after(1, head);
     ll = insert_after(2, ll);
     ll = insert_after(3, ll);
+    ll = insert_after(4, ll);
+    ll = insert_after(5, ll);
+    ll = insert_after(6, ll);
+    ll = insert_after(7, ll);
+    ll = insert_after(8, ll);
+    struct node *found = search(5, head);
+    printf("Found 5 %p %i \n", found, found->key);
+    delete_after(5, head);
     print_linked_list(head);
     return 0;
 }
