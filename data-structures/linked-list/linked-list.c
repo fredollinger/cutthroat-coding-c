@@ -43,13 +43,19 @@ struct node* search(int key, struct node *head) {
     return NULL;
 }
 
-struct node* delete_after(int key, struct node *head) {
-    struct node *ptr = head;
+void delete_after(int key, struct node *head) {
+    struct node *ptr = head->next;
     while (ptr != ptr->next) {
         if (key == ptr->key) {
-	    struct node *del = ptr->next;
+            printf("del: %i for %p key: %i \n", key, ptr, ptr->key);
+            if (ptr->next == ptr->next->next) {
+                printf("Refusing to delete last node: %p -> %p \n", ptr->next, ptr->next->next);
+                return;
+            }
+            struct node *del = ptr->next;
             ptr->next = ptr->next->next;
-	    free(del);
+            free(del);
+            return;
         }
         ptr = ptr->next;
     }
@@ -77,7 +83,8 @@ int main() {
     ll = insert_after(8, ll);
     struct node *found = search(5, head);
     printf("Found 5 %p %i \n", found, found->key);
-    delete_after(5, head);
+    delete_after(5, head); // should delete 6
+    delete_after(8, head); // will this crash?
     print_linked_list(head);
     return 0;
 }
