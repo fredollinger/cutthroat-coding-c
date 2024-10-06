@@ -7,7 +7,7 @@ typedef struct node {
 } node;
 
 /* linked list */
-node* list_create(void *data);
+node* list_create();
 void list_destroy(node **list);
 node* list_insert_after(node *node, void *data);
 node* list_insert_beginning(node *list, void *data);
