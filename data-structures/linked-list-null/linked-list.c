@@ -1,6 +1,7 @@
 #include "linked-list.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
 node* list_create() {
     node *head = malloc(sizeof(node));
@@ -22,6 +23,13 @@ node* list_insert_after(node *ptr, int data) {
     return neu;
 }
 
+void list_print(node *head) {
+    node *ptr = head->next;
+	while(NULL != ptr->next) {
+       printf("ptr: %p data: %i \n", ptr, ptr->data);
+       ptr = ptr->next;
+    }
+}
 
 int main()
 {
@@ -34,4 +42,5 @@ int main()
     ptr = list_insert_after(ptr, 6);
     ptr = list_insert_after(ptr, 7);
     ptr = list_insert_after(ptr, 8);
+    list_print(head);
 }
