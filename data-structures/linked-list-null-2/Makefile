@@ -1,4 +1,4 @@
 all:
-	gcc linked-list.c -o linked-list
+	gcc list.c -o list
 clean:
-	rm -f linked-list
+	rm -f list
