@@ -8,14 +8,13 @@ typedef struct node {
 
 /* linked list */
 node* list_create();
-node* list_insert_after(node *ptr, int data);
-node* list_insert_beginning(node *head, int data);
-void list_destroy(node *heaed);
-node* list_insert_end(node *head, void *data);
+node* list_insert_after(node *ptr, int key);
+void list_destroy(node *head);
+node* list_insert_end(node *head, int key);
 void list_remove(node *head, node *ptr);
-void list_remove_by_data(node *head, void *ptr);
+void list_remove_by_key(node *head, int key);
 node* list_find_node(node *head, node *ptr);
-node* list_find_by_data(node *head, void *data);
+node* list_find_by_key(node *head, int key);
 
 #endif
 
