@@ -80,12 +80,6 @@ node* list_find_by_key_seq(node *head, int key) {
     return ptr;
 }
 
-node* list_binary_search(node *head, int key) {
-    node *ptr = head;
-    while(ptr->next != NULL) {
-    }
-}
-
 int main() {
     int key = 22;
     node *head = list_create();
