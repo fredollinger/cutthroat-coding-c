@@ -7,18 +7,19 @@ typedef struct node {
   struct node *right;
 } node;
 
-node* tree_initialize() {
-    node *head = (node*)malloc(sizeof(node));
-    node *z = (node*)malloc(sizeof(node));
+void tree_initialize(node *head, node *z) {
+    head = (node*)malloc(sizeof(node));
+    z = (node*)malloc(sizeof(node));
     z->left = z;
     z->right = z;
     z->info = -1;
     head->left = z;
     head->key = 0;
-    return head;
+    return;
 }
 
 int main() {
-    node *head = tree_initialize();
+    node *head, *z;
+    tree_initialize(head, z);
     return 0;
 }
