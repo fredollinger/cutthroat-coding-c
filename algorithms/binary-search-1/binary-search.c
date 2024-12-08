@@ -6,7 +6,7 @@
 int sequential_search(int item, int *arr, int len) {
     printf("len: %i \n", len);
     int i;
-    for (i=0; i < item; i++); 
+    for (i=0; i < item; i++);
     printf("search item: %i index: %i result: %i \n", item, i, arr[i]);
 }
 
@@ -20,18 +20,18 @@ int binary_search(int item, int *arr, int len) {
     while (low < high) {
         if (item > arr[mid]) {
             printf("binary_search(): higher mid %i\n", mid);
-	    low = mid; 
+            low = mid;
             mid = low + (high - low) / 2;
         }
-	else if (item < arr[mid]) {
+        else if (item < arr[mid]) {
             printf("binary_search(): lower mid %i\n", mid);
-	    high = mid; 
+            high = mid;
             mid = low + (high - low) / 2;
-	}
-	else if (arr[mid] == item) {
-	    printf("binary_search(): arr: %i == item: %i \n", arr[mid], item);
-	    break;
-	}
+        }
+        else if (arr[mid] == item) {
+            printf("binary_search(): arr: %i == item: %i \n", arr[mid], item);
+            break;
+        }
     }
     return mid;
 }
