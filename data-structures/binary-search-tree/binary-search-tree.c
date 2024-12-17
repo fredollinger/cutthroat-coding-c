@@ -7,16 +7,18 @@ typedef struct node {
   struct node *right;
 } node;
 
-void tree_initialize(node *head, node *z) {
-    head = (node*)malloc(sizeof(node));
-    z = (node*)malloc(sizeof(node));
-    z->left = z;
-    z->right = z;
-    head->left = z;
-    head->key = 0;
+void tree_initialize(node **head, node **z) {
+    *head = malloc(sizeof(node));
+    *z = malloc(sizeof(node));
+    (*z)->left = *z;
+    (*z)->right = *z;
+    (*head)->left = *z;
+    (*head)->right = *z;
+    (*head)->key = 0;
     return;
 }
 
+#if 0
 void tree_insert(node *head, node *z, int key) {
     node *prev = head;
     node *ptr = head->right;
@@ -50,10 +52,11 @@ void tree_insert(node *head, node *z, int key) {
         prev->right = neu;
     }
 }
+#endif
 
 int main() {
     node *head, *z;
-    tree_initialize(head, z);
-    tree_insert(head, z, 1);
+    tree_initialize(&head, &z);
+    // tree_insert(head, z, 1);
     return 0;
 }
