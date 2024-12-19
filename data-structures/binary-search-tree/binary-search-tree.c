@@ -18,12 +18,11 @@ void tree_initialize(node **head, node **z) {
     return;
 }
 
-#if 0
-void tree_insert(node *head, node *z, int key) {
-    node *prev = head;
-    node *ptr = head->right;
+void tree_insert(node **head, node **z, int key) {
+    node *prev = *head;
+    node *ptr = (*head)->right;
     // While we are not at the end
-    while (ptr != z) {
+    while (ptr != *z) {
         prev = ptr;
         // lower keys go to the left
         if (key < ptr->key) {
@@ -39,10 +38,10 @@ void tree_insert(node *head, node *z, int key) {
             return;
         }
     }
-    node *neu = (node*)malloc(sizeof(node));
+    node *neu = malloc(sizeof(node));
     neu->key = key;
-    neu->left = z;
-    neu->right = z;
+    neu->left = *z;
+    neu->right = *z;
     // lower keys go to the left
     if (key < prev->key) {
         prev->left = neu;
@@ -52,11 +51,10 @@ void tree_insert(node *head, node *z, int key) {
         prev->right = neu;
     }
 }
-#endif
 
 int main() {
     node *head, *z;
     tree_initialize(&head, &z);
-    // tree_insert(head, z, 1);
+    tree_insert(&head, &z, 1);
     return 0;
 }
