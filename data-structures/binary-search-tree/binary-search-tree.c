@@ -29,12 +29,16 @@ void tree_insert(node **head, node **z, int key) {
             ptr = ptr->left;
         }
         // larger keys go to the right
-        else if (key < ptr->key) {
+        else if (key > ptr->key) {
             ptr = ptr->right;
         }
         // if the keys are equal, don't insert it by definition of BST
+        else if (key == ptr->key) {
+            printf("keys are equal %i == %i \n", key, ptr->key);
+            return;
+        }
         else {
-            printf("keys are equal %i == %i", key, ptr->key);
+            printf("we should never get here key: %i, ptr->key: %i \n", key, ptr->key);
             return;
         }
     }
@@ -56,5 +60,15 @@ int main() {
     node *head, *z;
     tree_initialize(&head, &z);
     tree_insert(&head, &z, 1);
+    tree_insert(&head, &z, 10);
+    tree_insert(&head, &z, 14);
+    tree_insert(&head, &z, 3);
+    tree_insert(&head, &z, 2);
+    tree_insert(&head, &z, 8);
+    tree_insert(&head, &z, 50);
+    tree_insert(&head, &z, 101);
+    tree_insert(&head, &z, 71);
+    tree_insert(&head, &z, 30);
+    tree_insert(&head, &z, 22);
     return 0;
 }
