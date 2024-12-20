@@ -56,6 +56,18 @@ void tree_insert(node **head, node **z, int key) {
     }
 }
 
+// Got through all the keys and print them out
+void tree_print(node **head, node **z) {
+    node *ptr = *head;
+    // While we are not at the end
+    if (ptr == *z) {
+        return;
+    }
+    printf("key: %i \n", ptr->key);
+    tree_print(&(ptr->right), z);
+    tree_print(&(ptr->left), z);
+}
+
 int main() {
     node *head, *z;
     tree_initialize(&head, &z);
@@ -70,5 +82,6 @@ int main() {
     tree_insert(&head, &z, 71);
     tree_insert(&head, &z, 30);
     tree_insert(&head, &z, 22);
+    tree_print(&head, &z);
     return 0;
 }
