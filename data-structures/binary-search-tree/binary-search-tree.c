@@ -66,6 +66,23 @@ void tree_print(node *head, node *z) {
     tree_print(head->right, z);
 }
 
+node* tree_search(node *head, node *z, int key) {
+    node *ptr = head->right;
+    while (ptr != z) {
+        // lower keys go to the left
+        if (key < ptr->key) {
+            ptr = ptr->left;
+        }
+        else if (key > ptr->key) {
+            ptr = ptr->right;
+        }
+        else if (key == ptr->key) {
+            return ptr;
+        }
+    }
+    return z;
+}
+
 int main() {
     node *head, *z;
     tree_initialize(&head, &z);
@@ -80,6 +97,8 @@ int main() {
     tree_insert(&head, &z, 71);
     tree_insert(&head, &z, 30);
     tree_insert(&head, &z, 22);
-    tree_print(head, z);
+    node *res = tree_search(head, z, 101);
+    printf("101 result is %i \n", res->key);
+    // tree_print(head, z);
     return 0;
 }
