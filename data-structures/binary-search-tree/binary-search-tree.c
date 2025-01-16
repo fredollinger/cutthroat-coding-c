@@ -1,11 +1,67 @@
 #include <stdlib.h>  // malloc
 #include <stdio.h>   // printf
 
+int test_int = 2;
+
 typedef struct node {
   int key;
   struct node *left;
   struct node *right;
 } node;
+
+void tree_delete(node *head, node *z, int key) {
+    node *ptr = head->right;
+    node *prev = head;
+    while (ptr->key != key && ptr != z) {
+        prev = ptr;
+        // higher is on the right
+        if (ptr->key < key) {
+            ptr = ptr->right;
+        }
+        // lower keys go to the left
+        else if (ptr->key > key) {
+            ptr = ptr->left;
+        }
+        else {
+            printf("tree_delete() we should never get here \n");
+            exit(-1);
+        }
+    }
+
+    // Handle all the cases to delete
+    // 0 1, 2 children
+
+    // 0 children
+    // delete the pointer
+    if (ptr->left == z && ptr->right == z) {
+        printf("tree_delete: %i no children \n ", ptr->key);
+        if (prev->left == ptr) {
+            prev->left = z;
+        }
+        else if (prev->right == ptr) {
+            prev->right = z;
+        }
+        else {
+            printf("Neither prev->right nor prev->left point to ptr. Bug!! \n");
+        }
+
+        free(ptr);
+    }
+    // 1 child right
+    else if (ptr->left == z && ptr->right != z) {
+        printf("tree_delete: %i 1 child right %i \n", ptr->key, ptr->right->key);
+    }
+    // 1 child left
+    else if (ptr->left != z && ptr->right == z) {
+        printf("tree_delete: %i 1 child left %i \n", ptr->key, ptr->left->key);
+    }
+    // 2 children
+    else if (ptr->left != z && ptr->right != z) {
+        printf("tree_delete: %i 2 children %i %i \n", ptr->key, ptr->left->key, ptr->right->key);
+    }
+ 
+    return;
+}
 
 void tree_initialize(node **head, node **z) {
     *head = malloc(sizeof(node));
@@ -97,8 +153,25 @@ int main() {
     tree_insert(&head, &z, 71);
     tree_insert(&head, &z, 30);
     tree_insert(&head, &z, 22);
-    node *res = tree_search(head, z, 101);
-    printf("101 result is %i \n", res->key);
-    // tree_print(head, z);
+    node *res = tree_search(head, z, test_int);
+
+    if (z != res) {
+        printf("test_int result is %i \n", res->key);
+    }
+    else {
+        printf("Can't find test_int. \n");
+    }
+
+    printf("test_int is %i \n", test_int);
+
+    tree_delete(head, z, test_int);
+    res = tree_search(head, z, test_int);
+    if (z != res) {
+        printf("test_int result is %i \n", res->key);
+    }
+    else {
+        printf("Can't find test_int. \n");
+    }
+    tree_print(head, z);
     return 0;
 }
