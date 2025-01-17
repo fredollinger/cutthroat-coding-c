@@ -1,7 +1,7 @@
 #include <stdlib.h>  // malloc
 #include <stdio.h>   // printf
 
-int test_int = 71;
+int test_int = 3;
 
 typedef struct node {
   int key;
@@ -57,6 +57,7 @@ void tree_delete(node *head, node *z, int key) {
     else if (ptr->left != z && ptr->right == z) {
         printf("tree_delete: %i 1 child left %i \n", ptr->key, ptr->left->key);
         prev->left = ptr->left;
+        free(ptr);
     }
     // 2 children
     else if (ptr->left != z && ptr->right != z) {
@@ -169,6 +170,9 @@ int main() {
     printf("test_int is %i \n", test_int);
 
     tree_delete(head, z, test_int);
+    tree_delete(head, z, 71);
+    tree_delete(head, z, 70);
+
     res = tree_search(head, z, test_int);
     if (z != res) {
         printf("test_int result is %i \n", res->key);
