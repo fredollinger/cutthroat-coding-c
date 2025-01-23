@@ -1,2 +1,3 @@
 fizz-buzz
 .vscode/
+*.dSYM
