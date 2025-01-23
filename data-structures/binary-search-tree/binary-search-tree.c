@@ -1,13 +1,25 @@
 #include <stdlib.h>  // malloc
 #include <stdio.h>   // printf
 
-int test_int = 3;
+int test_int = 4;
 
 typedef struct node {
   int key;
   struct node *left;
   struct node *right;
 } node;
+
+// Note that it is not a generic inorder successor
+// function. It mainly works when the right child
+// is not empty, which is  the case we need in
+// BST delete.
+struct node* get_successor(node* curr, node* z) {
+    curr = curr->right;
+    while (curr != z && curr->left != z) {
+        curr = curr->left;
+    }
+    return curr;
+}
 
 void tree_delete(node *head, node *z, int key) {
     node *ptr = head->right;
@@ -61,7 +73,16 @@ void tree_delete(node *head, node *z, int key) {
     }
     // 2 children
     else if (ptr->left != z && ptr->right != z) {
-        printf("tree_delete: %i 2 children %i %i \n", ptr->key, ptr->left->key, ptr->right->key);
+        printf("tree_delete(): %i 2 children left: %i right: %i \n", ptr->key, ptr->left->key, ptr->right->key);
+        // find the node to replace the node we want to delete
+        node *succ = get_successor(ptr, z);
+        // swap the nodes
+        succ->left = ptr->left;
+        prev->left = succ;
+        // prev->key = succ->key;
+        // ptr->right = prev;
+        // free(succ);
+        printf("tree_delete(): succeessor %i \n", succ->key);
     }
  
     return;
@@ -146,18 +167,15 @@ node* tree_search(node *head, node *z, int key) {
 int main() {
     node *head, *z;
     tree_initialize(&head, &z);
-    tree_insert(&head, &z, 1);
-    tree_insert(&head, &z, 10);
-    tree_insert(&head, &z, 14);
-    tree_insert(&head, &z, 3);
+
     tree_insert(&head, &z, 2);
-    tree_insert(&head, &z, 8);
-    tree_insert(&head, &z, 50);
-    tree_insert(&head, &z, 101);
-    tree_insert(&head, &z, 71);
-    tree_insert(&head, &z, 30);
-    tree_insert(&head, &z, 22);
-    tree_insert(&head, &z, 70);
+    tree_insert(&head, &z, 1);
+    tree_insert(&head, &z, 7);
+    tree_insert(&head, &z, 4);
+    tree_insert(&head, &z, 3);
+    tree_insert(&head, &z, 6);
+    tree_insert(&head, &z, 5);
+
     node *res = tree_search(head, z, test_int);
 
     if (z != res) {
@@ -170,8 +188,8 @@ int main() {
     printf("test_int is %i \n", test_int);
 
     tree_delete(head, z, test_int);
-    tree_delete(head, z, 71);
-    tree_delete(head, z, 70);
+    // tree_delete(head, z, 71);
+    // tree_delete(head, z, 70);
 
     res = tree_search(head, z, test_int);
     if (z != res) {
