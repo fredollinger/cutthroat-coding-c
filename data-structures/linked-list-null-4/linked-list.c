@@ -1,10 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct node { 
+typedef struct node { 
     int key; 
     struct node *next; 
-};
+} node;
 
 /*
     Traversal - To access each element of the linked list.
@@ -14,32 +14,68 @@ struct node {
     Sort - To sort the nodes.
 */
 
-struct node* linked_list_initialize() {
+node* linked_list_initialize() {
+    node *head = malloc(sizeof(node));
+    head->key = 0;
+    head->next = NULL;
+    return head;
 }
 
-struct node* insert_after(int key, struct node *head) {
+// insert the new item right after the head
+node* linked_list_insert(int key, node *ptr) {
+    node *neu = malloc(sizeof(node));
+    neu->key = key;
+    neu->next = ptr->next;
+    ptr->next = neu;
+    return neu;
 }
 
-struct node* search(int key, struct node *head) {
+void print_linked_list(node *ptr) {
+    while (ptr != NULL) {
+        printf("%i \n", ptr->key);
+        ptr = ptr->next;
+    }
+}
+
+void linked_list_swap(node *ptr) {
+    node *one, *two, *tmp, *three;
+    one = ptr->next;
+    two = ptr->next->next;
+    three = ptr->next->next->next;
+    ptr->next = two;
+    ptr->next->next = one;
+    one->next = three;
+    return;
+}
+
+/*
+node* insert_after(int key, struct node *head) {
+}
+
+node* search(int key, struct node *head) {
 }
 
 void delete_after(int key, struct node *head) {
 }
 
-void print_linked_list(struct node *head) {
-}
+*/
 
 int main() {
+    node *head = linked_list_initialize();
+    node *ll = linked_list_insert(3, head);
+
+    ll = linked_list_insert(2, ll);
+    ll = linked_list_insert(8, ll);
+    ll = linked_list_insert(4, ll);
+    ll = linked_list_insert(5, ll);
+    ll = linked_list_insert(6, ll);
+    ll = linked_list_insert(7, ll);
+    // linked_list_swap(head);
+    print_linked_list(head);
+
 /*
-    struct node *head = linked_list_initialize();
     struct node *ll = insert_after(1, head);
-    ll = insert_after(2, ll);
-    ll = insert_after(3, ll);
-    ll = insert_after(4, ll);
-    ll = insert_after(5, ll);
-    ll = insert_after(6, ll);
-    ll = insert_after(7, ll);
-    ll = insert_after(8, ll);
+
     struct node *found = search(5, head);
     printf("Found 5 %p %i \n", found, found->key);
     delete_after(5, head); // should delete 6
