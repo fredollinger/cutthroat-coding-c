@@ -6,14 +6,6 @@ typedef struct node {
     struct node *next; 
 } node;
 
-/*
-    Traversal - To access each element of the linked list.
-    Insertion - To add/insert a new node to the list.
-    Deletion - To remove ane existing node from the list.
-    Search - To find a node in the list.
-    Sort - To sort the nodes.
-*/
-
 node* linked_list_initialize() {
     node *head = malloc(sizeof(node));
     head->key = 0;
@@ -47,25 +39,6 @@ void linked_list_swap(node *ptr) {
     one->next = three;
     return;
 }
-
-void linked_list_bubble_sort(node *head) {
-    node *ptr = head;
-    int done = 1;
-    do {
-        ptr = head;
-        done = 1;
-        while(ptr->next->next != NULL) {
-            if (ptr->next->key > ptr->next->next->key) {
-                linked_list_swap(ptr);
-                done = 0;
-            }
-            else {
-            }
-            ptr = ptr->next;
-        }
-    } while(!done);
-}
-
 
 node* linked_list_search(int key, node *head) {
     node *ptr = head;
@@ -105,19 +78,8 @@ int main() {
     ll = linked_list_insert(2, ll);
     ll = linked_list_insert(1, ll);
 
-    linked_list_bubble_sort(head);
-    node *four = linked_list_search(4, head);
-    printf("found 4 as %i \n", four->key);
-    linked_list_delete(5, head); // should delete 6
+    // linked_list_bubble_sort(head);
     print_linked_list(head);
 
-/*
-    linked_list_swap(head->next->next);
-    struct node *ll = insert_after(1, head);
-    struct node *found = search(5, head);
-    printf("Found 5 %p %i \n", found, found->key);
-    delete_after(8, head); // will this crash?
-    print_linked_list(head);
-*/
     return 0;
 }
