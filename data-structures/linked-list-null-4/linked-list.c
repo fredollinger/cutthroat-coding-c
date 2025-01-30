@@ -56,29 +56,43 @@ void linked_list_bubble_sort(node *head) {
         done = 1;
         while(ptr->next->next != NULL) {
             if (ptr->next->key > ptr->next->next->key) {
-                printf("bubble %i > %i \n", ptr->next->key, ptr->next->next->key);
                 linked_list_swap(ptr);
                 done = 0;
             }
             else {
-                printf("bubble %i < %i \n", ptr->next->key, ptr->next->next->key);
             }
             ptr = ptr->next;
         }
     } while(!done);
 }
 
-/*
-node* insert_after(int key, struct node *head) {
+
+node* linked_list_search(int key, node *head) {
+    node *ptr = head;
+    while (ptr != NULL) {
+        if (ptr->key == key) {
+            return ptr;
+        }
+        ptr = ptr->next;
+    }
+    return NULL;
 }
 
-node* search(int key, struct node *head) {
-}
+void linked_list_delete(int key, struct node *head) {
+    node *ptr = head;
+    node *prev = ptr;
+    while (ptr != NULL && ptr->key != key) {
+        prev = ptr;
+        ptr = ptr->next;
+    }
+    
+    if (NULL == ptr) {
+        return;
+    }
 
-void delete_after(int key, struct node *head) {
+    prev->next = ptr->next;
+    free(ptr);
 }
-
-*/
 
 int main() {
     node *head = linked_list_initialize();
@@ -92,6 +106,9 @@ int main() {
     ll = linked_list_insert(1, ll);
 
     linked_list_bubble_sort(head);
+    node *four = linked_list_search(4, head);
+    printf("found 4 as %i \n", four->key);
+    linked_list_delete(5, head); // should delete 6
     print_linked_list(head);
 
 /*
@@ -99,7 +116,6 @@ int main() {
     struct node *ll = insert_after(1, head);
     struct node *found = search(5, head);
     printf("Found 5 %p %i \n", found, found->key);
-    delete_after(5, head); // should delete 6
     delete_after(8, head); // will this crash?
     print_linked_list(head);
 */
