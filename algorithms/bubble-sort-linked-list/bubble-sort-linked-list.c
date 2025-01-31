@@ -64,6 +64,21 @@ void linked_list_swap(node *first, node *second) {
 }
 
 node* linked_list_bubble_sort(node *head) {
+    int done = 0;
+    node *ptr = head->next;
+    int tmp;
+    while(done == 0) {
+        int i;
+        ptr = head->next;
+        done = 1;
+        while(ptr->next != NULL) {
+            if (ptr->key > ptr->next->key) {
+                linked_list_swap(ptr, ptr->next);
+                done = 0;
+            }
+            ptr = ptr->next;
+        }
+    }
     return head;
 }
 
@@ -83,10 +98,10 @@ int main() {
     print_linked_list(head);
 
     node *two = linked_list_search(2, head);
-    linked_list_swap(head->next, two);
+    linked_list_bubble_sort(head);
 
     // linked_list_bubble_sort(head);
-    printf("\n swap 7 and 2 \n");
+    printf("\n sorted \n");
     print_linked_list(head);
 
     return 0;
