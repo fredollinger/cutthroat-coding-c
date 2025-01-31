@@ -29,17 +29,6 @@ void print_linked_list(node *ptr) {
     }
 }
 
-void linked_list_swap(node *ptr) {
-    node *one, *two, *tmp, *three;
-    one = ptr->next;
-    two = ptr->next->next;
-    three = ptr->next->next->next;
-    ptr->next = two;
-    ptr->next->next = one;
-    one->next = three;
-    return;
-}
-
 node* linked_list_search(int key, node *head) {
     node *ptr = head;
     while (ptr != NULL) {
@@ -67,10 +56,22 @@ void linked_list_delete(int key, struct node *head) {
     free(ptr);
 }
 
+// swap the next to nodes after the one given
+void linked_list_swap(node *first, node *second) {
+    int key = first->key;
+    first->key = second->key;
+    second->key = key;
+}
+
+node* linked_list_bubble_sort(node *head) {
+    return head;
+}
+
 int main() {
     node *head = linked_list_initialize();
-    node *ll = linked_list_insert(7, head);
 
+    // populate linked list
+    node *ll = linked_list_insert(7, head);
     ll = linked_list_insert(6, ll);
     ll = linked_list_insert(5, ll);
     ll = linked_list_insert(4, ll);
@@ -78,7 +79,14 @@ int main() {
     ll = linked_list_insert(2, ll);
     ll = linked_list_insert(1, ll);
 
+    printf("original \n");
+    print_linked_list(head);
+
+    node *two = linked_list_search(2, head);
+    linked_list_swap(head->next, two);
+
     // linked_list_bubble_sort(head);
+    printf("\n swap 7 and 2 \n");
     print_linked_list(head);
 
     return 0;
