@@ -64,6 +64,18 @@ void linked_list_swap(node *first, node *second) {
 }
 
 node* linked_list_insert_sort(node *head) {
+    node *ptr1 = head->next;
+    node *ptr2;
+    while (ptr1 != NULL) {
+        ptr2 = ptr1;
+        while(ptr2 != NULL) {
+            if (ptr1->key > ptr2->key) {
+                linked_list_swap(ptr1, ptr2);
+            }
+            ptr2 = ptr2->next;
+        }
+        ptr1 = ptr1->next;
+    }
     return head;
 }
 
