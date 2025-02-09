@@ -1,4 +1,4 @@
-APP=insert-sort-linked-list
+APP=select-sort-linked-list
 
 ${APP}:
 	gcc ${APP}.c -o ${APP}
