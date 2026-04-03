@@ -19,7 +19,7 @@ node* list_find_node(node *head, node *ptr);
 node* list_find_by_key(node *head, int key);
 */
 
-Node* list_create() {
+Node* linked_list_create() {
     Node *head = (Node*)malloc(sizeof(Node));   
     head->key = -1;
     Node *tail = (Node*)malloc(sizeof(Node));   
@@ -29,7 +29,35 @@ Node* list_create() {
     return head;
 }
 
+Node* linked_list_insert_after(Node *ptr, int key) {
+    Node *neu = (Node*)malloc(sizeof(Node));   
+    neu->key = key;
+    neu->next = ptr->next;
+    ptr->next = neu;
+    return neu;
+}
+
+void print_linked_list(Node *ll) {
+    Node *ptr = ll->next;
+
+    while (NULL != ptr->next) {
+        printf("key [%i] \n", ptr->key);
+        ptr = ptr->next;
+    }
+}
+
 int main() {
-    Node *ptr = list_create();
-    printf("tail %i \n", ptr->next->key);
+    Node *head = linked_list_create();
+    Node *ll = head;
+
+    ll = linked_list_insert_after(ll, 6);
+    ll = linked_list_insert_after(ll, 5);
+    ll = linked_list_insert_after(ll, 4);
+    ll = linked_list_insert_after(ll, 3);
+    ll = linked_list_insert_after(ll, 2);
+    ll = linked_list_insert_after(ll, 1);
+
+    print_linked_list(head);
+
+   return 0;
 }
