@@ -47,21 +47,7 @@ void linked_list_print(Node *ll) {
     }
 }
 
-// Naive approach, make a new list, and copy it over
-Node* linked_list_reverse_naive(Node *ll) {
-    Node *ptr = ll->next;
-    Node *head = linked_list_create();
-    Node *curr = head;
-  
-    while (NULL != ptr->next) {
-        // printf("key [%i] \n", ptr->key);
-        curr = linked_list_insert_after(curr, ptr->key);
-        ptr = ptr->next;
-    }
-    return head;
-}
-
-void linked_list_insert_before(Node *head, Node *before, int key) {
+Node* linked_list_insert_before(Node *head, Node *before, int key) {
     Node *ptr = head;
     while (before != ptr->next) {
         ptr = ptr->next;
@@ -73,7 +59,25 @@ void linked_list_insert_before(Node *head, Node *before, int key) {
     neu->next = ptr->next;
     ptr->next = neu;
     
-    return;
+    return neu;
+}
+
+// Naive approach, make a new list, and copy it over
+Node* linked_list_reverse_naive(Node *ll) {
+    Node *ptr = ll->next;
+    Node *head = linked_list_create();
+    Node *curr = head;
+
+    linked_list_insert_after(curr, ptr->key);
+    ptr = ptr->next;
+    curr = curr->next;
+
+    while (NULL != ptr->next) {
+        curr = linked_list_insert_before(head, curr, ptr->key);
+        ptr = ptr->next;
+    }
+
+    return head;
 }
 
 int main() {
@@ -89,9 +93,9 @@ int main() {
 
     linked_list_print(head);
     
-    // Node *head2 = linked_list_reverse_naive(head);
+    Node *head2 = linked_list_reverse_naive(head);
   
-    // linked_list_print(head2);
+    linked_list_print(head2);
 
    return 0;
 }
