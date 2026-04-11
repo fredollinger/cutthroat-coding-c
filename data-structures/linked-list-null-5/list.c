@@ -80,6 +80,20 @@ Node* linked_list_reverse_naive(Node *ll) {
     return head;
 }
 
+// find the Node right before the ptr
+Node* linked_list_find_before(Node *head, Node *ptr) {
+    Node *curr = head;
+    while(curr->next != ptr) {
+        curr = curr->next;
+    }
+    return curr;    
+}
+
+void linked_list_remove(Node *head, Node *ptr) {
+    Node *before = linked_list_find_before(head, ptr);
+    before->next = ptr->next;
+}
+
 int main() {
     Node *head = linked_list_create();
     Node *ll = head;
@@ -87,15 +101,20 @@ int main() {
     ll = linked_list_insert_after(ll, 6);
     ll = linked_list_insert_after(ll, 5);
     ll = linked_list_insert_after(ll, 4);
+    Node *four = ll;
     ll = linked_list_insert_after(ll, 3);
     ll = linked_list_insert_after(ll, 1);
     linked_list_insert_before(head, ll, 2);
+    linked_list_remove(head, four);
 
     linked_list_print(head);
     
-    Node *head2 = linked_list_reverse_naive(head);
-  
-    linked_list_print(head2);
+
+    // Node *head2 = linked_list_reverse_naive(head);
+    // Node *before_four = linked_list_find_before(head, four);
+
+    // printf("before 4 %i \n", before_four->key);
+    // linked_list_print(head2);
 
    return 0;
 }
