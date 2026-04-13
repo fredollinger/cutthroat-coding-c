@@ -94,10 +94,31 @@ void linked_list_remove(Node *head, Node *ptr) {
     before->next = ptr->next;
 }
 
+// Naive approach, make a new list, and copy it over
+void linked_list_reverse_in_place(Node *head) {
+    // find end of linked list
+    Node *tail = linked_list_find_before(head, NULL);
+    Node *last = linked_list_find_before(head, tail);
+    Node *last_curr = last;
+    Node *first = head->next;
+    Node *first_curr = first;
+    Node *first_prev = first_curr;
+    printf("list item of linked list first %i, last %i \n", first_curr->key, last_curr->key);
+    while(first_curr != last_curr && last_curr != first_prev) {
+        // TODO SWAP HERE
+        first_prev = first_curr;
+        first_curr = first_curr->next;
+        last_curr = linked_list_find_before(head, last_curr);
+        printf("list item of linked list first %i, last %i \n", first_curr->key, last_curr->key);
+    }
+    return;
+}
+
 int main() {
     Node *head = linked_list_create();
     Node *ll = head;
 
+    // ll = linked_list_insert_after(ll, 7);
     ll = linked_list_insert_after(ll, 6);
     ll = linked_list_insert_after(ll, 5);
     ll = linked_list_insert_after(ll, 4);
@@ -108,13 +129,11 @@ int main() {
     linked_list_remove(head, four);
 
     linked_list_print(head);
-    
 
     // Node *head2 = linked_list_reverse_naive(head);
-    // Node *before_four = linked_list_find_before(head, four);
-
-    // printf("before 4 %i \n", before_four->key);
-    // linked_list_print(head2);
+    linked_list_reverse_in_place(head);
+    printf("linked list reverse \n");
+    linked_list_print(head);
 
    return 0;
 }
