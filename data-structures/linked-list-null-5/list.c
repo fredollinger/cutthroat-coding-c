@@ -114,10 +114,8 @@ void linked_list_reverse_in_place(Node *head) {
     Node *last_curr = last;
     Node *first = head->next;
     Node *first_curr = first;
-    Node *first_prev = first_curr;
     Node *last_before = NULL;
     printf("list item of linked list first %i, last %i \n", first_curr->key, last_curr->key);
-    // while(first_curr != last_curr && last_curr != first_prev) {
     while(first_curr != last_curr) {
         if (first_curr->key != last_curr->key) {
             last_before = linked_list_find_before(head, last_curr);
@@ -126,7 +124,6 @@ void linked_list_reverse_in_place(Node *head) {
         else {
             break;
         }
-        first_prev = last_curr;
         first_curr = last_curr->next;
         last_curr = last_before;
         printf("list item of linked list first %i, last %i \n", first_curr->key, last_curr->key);
