@@ -168,11 +168,11 @@ int main() {
 
     linked_list_print(head);
 
-    // linked_list_swap(head, five, three);
+    linked_list_swap(head, three, four);
 
-    linked_list_reverse_in_place(head);
+    //linked_list_reverse_in_place(head);
     //printf("linked list swap \n");
-    //linked_list_print(head);
+    linked_list_print(head);
     // Node *head2 = linked_list_reverse_naive(head);
 
    return 0;
