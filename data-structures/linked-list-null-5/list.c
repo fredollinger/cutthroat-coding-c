@@ -102,7 +102,14 @@ void linked_list_swap(Node *head, Node *first, Node *second) {
     Node *before_second = linked_list_find_before(head, second);
     Node *old_first_next; 
 
-    old_first_next = first->next;
+    // case in which the two items to swap are side by side therefore, if we use first->next, we'll wind up
+    // with a second linking to itself
+    if (first->next == second) {
+        old_first_next = first->next->next;
+    }
+    else {
+        old_first_next = first->next;
+    }
 
     Node *old_second_next = second->next;
 
