@@ -102,8 +102,13 @@ void linked_list_swap(Node *head, Node *first, Node *second) {
     Node *before_second = linked_list_find_before(head, second);
     Node *old_first_next = first->next;
     Node *old_second_next = second->next;
+
+    // if (old_first_next == second) {
+    // }
+    
+    second->next = old_first_next; // if the list items are next to one another, this will link to itself!
+
     first->next = old_second_next;
-    second->next = old_first_next;
     before_first->next = second;
     before_second->next = first;
     printf("swap first %i, second %i \n", first->key, second->key);
@@ -155,7 +160,7 @@ int main() {
     Node *head = linked_list_create();
     Node *ll = head;
 
-    // ll = linked_list_insert_after(ll, 7);
+    ll = linked_list_insert_after(ll, 7);
     ll = linked_list_insert_after(ll, 6);
     ll = linked_list_insert_after(ll, 5);
     Node *five = ll;
@@ -166,12 +171,12 @@ int main() {
     ll = linked_list_insert_after(ll, 1);
     linked_list_insert_before(head, ll, 2);
 
+
+    // linked_list_swap(head, three, four);
+
     linked_list_print(head);
-
-    linked_list_swap(head, three, four);
-
-    //linked_list_reverse_in_place(head);
-    //printf("linked list swap \n");
+    linked_list_reverse_in_place(head);
+    printf("linked list swap \n");
     linked_list_print(head);
     // Node *head2 = linked_list_reverse_naive(head);
 
