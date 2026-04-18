@@ -96,21 +96,28 @@ void linked_list_remove(Node *head, Node *ptr) {
     before->next = ptr->next;
 }
 
-void linked_list_swap(Node *head, Node *first, Node *second) {
-    printf("\n swap START %i, last %i \n", first->key, second->key);
+// swap 2 elements that are not touching
+void linked_list_swap_not_touching(Node *head, Node *first, Node *second) {
     Node *before_first = linked_list_find_before(head, first);
     Node *before_second = linked_list_find_before(head, second);
     Node *old_first_next = first->next;
     Node *old_second_next = second->next;
-
-    second->next = old_first_next; // if the list items are next to one another, this will link to itself!
-
+    second->next = old_first_next;
     first->next = old_second_next;
     before_first->next = second;
     before_second->next = first;
-    printf("swap first %i, second %i \n", first->key, second->key);
-    printf("swap first->next %i, second->next %i \n", first->next->key, second->next->key);
-    printf("swap before_first->next %i, before_second->next %i \n", before_first->next->key, before_second->next->key);
+}
+
+void linked_list_swap(Node *head, Node *first, Node *second) {
+    printf("\nswap first %i, second %i \n", first->key, second->key);
+ 
+    if (first->next == second) {
+        printf("\nswap first->next %i == second %i \n", first->next->key, second->key);
+        return;
+    }
+    else {
+        return linked_list_swap_not_touching(head, first, second);
+    }
 }
 
 // Naive approach, make a new list, and copy it over
@@ -169,12 +176,12 @@ int main() {
     linked_list_insert_before(head, ll, 2);
 
 
-    // linked_list_swap(head, three, four);
+    //linked_list_swap(head, four, three);
 
     linked_list_print(head);
     linked_list_reverse_in_place(head);
     printf("linked list swap \n");
-    linked_list_print(head);
+    //linked_list_print(head);
     // Node *head2 = linked_list_reverse_naive(head);
 
    return 0;
