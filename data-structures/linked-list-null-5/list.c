@@ -97,23 +97,36 @@ void linked_list_remove(Node *head, Node *ptr) {
 }
 
 // swap 2 elements that are not touching
-void linked_list_swap_not_touching(Node *head, Node *first, Node *second) {
+int linked_list_swap_not_touching(Node *head, Node *first, Node *second) {
     Node *before_first = linked_list_find_before(head, first);
     Node *before_second = linked_list_find_before(head, second);
     Node *old_first_next = first->next;
     Node *old_second_next = second->next;
+
     second->next = old_first_next;
     first->next = old_second_next;
     before_first->next = second;
     before_second->next = first;
+    return 0;
 }
 
-void linked_list_swap(Node *head, Node *first, Node *second) {
+int linked_list_swap_touching(Node *head, Node *first, Node *second) {
+    Node *before_first = linked_list_find_before(head, first);
+    Node *before_second = linked_list_find_before(head, second);
+    Node *old_second_next = second->next;
+
+    second->next = first->next->next;
+    first->next = old_second_next;
+    before_first->next = second;
+    return 1;
+}
+
+int linked_list_swap(Node *head, Node *first, Node *second) {
     printf("\nswap first %i, second %i \n", first->key, second->key);
  
     if (first->next == second) {
         printf("\nswap first->next %i == second %i \n", first->next->key, second->key);
-        return;
+        return linked_list_swap_touching(head, first, second);
     }
     else {
         return linked_list_swap_not_touching(head, first, second);
@@ -142,7 +155,10 @@ void linked_list_reverse_in_place(Node *head) {
         }
         if (first_curr->key != last_curr->key) {
             last_before = linked_list_find_before(head, last_curr);
-            linked_list_swap(head, first_curr, last_curr);
+            // if we are swapping two touching nodes then we are at the end
+            if (1 == linked_list_swap(head, first_curr, last_curr)) {
+                return;
+            }
             first_prev = last_curr;
             last_prev = first_curr;
             // printf("setting linked list swap %i, last %i \n", first_curr->key, last_curr->key);
@@ -181,8 +197,7 @@ int main() {
     linked_list_print(head);
     linked_list_reverse_in_place(head);
     printf("linked list swap \n");
-    //linked_list_print(head);
-    // Node *head2 = linked_list_reverse_naive(head);
+    linked_list_print(head);
 
    return 0;
 }
