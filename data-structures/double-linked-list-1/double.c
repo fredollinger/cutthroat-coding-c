@@ -31,6 +31,7 @@ Node* double_list_create() {
     tail->key = -2;
     tail->prev = head;
     tail->next = NULL;
+    return head;
 }
 
 Node* double_list_insert_after(Node *ptr, int key) {
@@ -44,14 +45,26 @@ Node* double_list_insert_after(Node *ptr, int key) {
 
 Node* double_list_print_forwards(Node *head) {
     Node *curr = head->next;
-    while(curr != NULL) {
+    while(curr->next != NULL) {
         printf("double_list_print_forwards() %i \n", curr->key);
         curr = curr->next;
     }
 }
 
+Node* double_list_print_backwards(Node *tail) {
+    Node *curr = tail->prev;
+    while(curr != NULL) {
+        printf("double_list_print_backwards() %i \n", curr->key);
+        curr = curr->prev;
+    }
+}
+
 int main() {
     Node *head = double_list_create();
+    Node *tail = head->next;
+   
+    // printf("tail %i \n", tail->key);
+
     Node *curr = double_list_insert_after(head, 7);
     curr = double_list_insert_after(curr, 6);
     curr = double_list_insert_after(curr, 5);
@@ -59,7 +72,8 @@ int main() {
     curr = double_list_insert_after(curr, 3);
     curr = double_list_insert_after(curr, 2);
     curr = double_list_insert_after(curr, 1);
-    double_list_print_forwards(head);
+    // double_list_print_forwards(head);
+    double_list_print_backwards(tail);
 
 /*
     ll = linked_list_insert_after(ll, 6);
