@@ -34,18 +34,23 @@ Node* double_list_create() {
     return head;
 }
 
-Node* double_list_insert_after(Node *ptr, int key) {
-    Node *neu = (Node*)malloc(sizeof(Node));
-    neu->key = key;
-    neu->next = ptr->next;
-    neu->prev = ptr;
-    ptr->next = neu;
-    return neu;
+Node* double_list_insert_after(Node *first, int key) {
+    Node *last = first->next;
+    Node *middle = (Node*)malloc(sizeof(Node));
+    middle->key = key;
+
+    middle->next = first->next;
+    middle->prev = first;
+
+    first->next = middle;
+    last->prev = middle;
+    // printf("neu->prev %i prt %i \n", neu->prev->key, ptr->key);
+    return middle;
 }
 
 Node* double_list_print_forwards(Node *head) {
     Node *curr = head->next;
-    while(curr->next != NULL) {
+    while(curr != NULL) {
         printf("double_list_print_forwards() %i \n", curr->key);
         curr = curr->next;
     }
@@ -67,12 +72,14 @@ int main() {
 
     Node *curr = double_list_insert_after(head, 7);
     curr = double_list_insert_after(curr, 6);
-    curr = double_list_insert_after(curr, 5);
-    curr = double_list_insert_after(curr, 4);
-    curr = double_list_insert_after(curr, 3);
-    curr = double_list_insert_after(curr, 2);
-    curr = double_list_insert_after(curr, 1);
-    // double_list_print_forwards(head);
+    //curr = double_list_insert_after(curr, 5);
+    //curr = double_list_insert_after(curr, 4);
+    //curr = double_list_insert_after(curr, 3);
+    //curr = double_list_insert_after(curr, 2);
+    //curr = double_list_insert_after(curr, 1);
+    //printf("tail->prev %i \n", tail->prev->key);
+    double_list_print_forwards(head);
+    printf("\n");
     double_list_print_backwards(tail);
 
 /*
