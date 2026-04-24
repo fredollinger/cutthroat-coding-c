@@ -50,7 +50,7 @@ Node* double_list_insert_after(Node *first, int key) {
 
 Node* double_list_print_forwards(Node *head) {
     Node *curr = head->next;
-    while(curr != NULL) {
+    while(curr->next != NULL) {
         printf("double_list_print_forwards() %i \n", curr->key);
         curr = curr->next;
     }
@@ -58,7 +58,7 @@ Node* double_list_print_forwards(Node *head) {
 
 Node* double_list_print_backwards(Node *tail) {
     Node *curr = tail->prev;
-    while(curr != NULL) {
+    while(curr->prev != NULL) {
         printf("double_list_print_backwards() %i \n", curr->key);
         curr = curr->prev;
     }
