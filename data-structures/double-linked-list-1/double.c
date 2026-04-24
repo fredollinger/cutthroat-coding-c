@@ -64,6 +64,15 @@ Node* double_list_print_backwards(Node *tail) {
     }
 }
 
+void double_list_remove(Node *dead) {
+    Node *first = dead->prev;
+    Node *last = dead->next;
+
+    first->next = last;
+    last->prev = first;
+    free(dead);
+}
+
 int main() {
     Node *head = double_list_create();
     Node *tail = head->next;
@@ -72,15 +81,25 @@ int main() {
 
     Node *curr = double_list_insert_after(head, 7);
     curr = double_list_insert_after(curr, 6);
-    //curr = double_list_insert_after(curr, 5);
-    //curr = double_list_insert_after(curr, 4);
-    //curr = double_list_insert_after(curr, 3);
-    //curr = double_list_insert_after(curr, 2);
-    //curr = double_list_insert_after(curr, 1);
-    //printf("tail->prev %i \n", tail->prev->key);
+    curr = double_list_insert_after(curr, 5);
+    curr = double_list_insert_after(curr, 4);
+    Node *four = curr;
+    curr = double_list_insert_after(curr, 3);
+    curr = double_list_insert_after(curr, 2);
+    curr = double_list_insert_after(curr, 1);
+
+    printf("Before removal \n");
     double_list_print_forwards(head);
     printf("\n");
     double_list_print_backwards(tail);
+
+    double_list_remove(four);
+
+    printf("\nAfter removal \n");
+    double_list_print_forwards(head);
+    printf("\n");
+    double_list_print_backwards(tail);
+    printf("\n");
 
 /*
     ll = linked_list_insert_after(ll, 6);
