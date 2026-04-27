@@ -73,19 +73,43 @@ void double_list_remove(Node *dead) {
     free(dead);
 }
 
+// swap 2 elements that are not touching
+// TODO Need to add prev as well!
+void double_swap_not_touching(Node *first, Node *second) {
+    Node *before_first = first->prev;
+    Node *before_second = second->prev;
+    Node *old_first_next = first->next;
+    Node *old_second_next = second->next;
+
+    second->next = old_first_next;
+    first->next = old_second_next;
+    before_first->next = second;
+    before_second->next = first;
+    return;
+}
+
+/*
 void double_list_swap(Node *one, Node *two) {
     Node *one_prev = one->prev;
     Node *one_next = one->next;
+
+    printf("one_prev %i \n", one_prev->key);
+    printf("one_next %i \n", one_next->key);
+
     Node *two_prev = two->prev;
     Node *two_next = two->next;
 
-    one_prev = two;
-    one_next = two;
-    two_prev = one;
-    two_next = one;
+    printf("two_prev %i \n", two_prev->key);
+    printf("two_next %i \n", two_next->key);
+
+    one_prev->prev = two;
+    one_next->next = two;
+    two_prev->prev = one;
+    two_next->next = one;
 
     return;
 }
+*/
 
 int main() {
     Node *head = double_list_create();
@@ -96,6 +120,7 @@ int main() {
     Node *curr = double_list_insert_after(head, 7);
     curr = double_list_insert_after(curr, 6);
     curr = double_list_insert_after(curr, 5);
+    Node *five = curr;
     curr = double_list_insert_after(curr, 4);
     Node *four = curr;
     curr = double_list_insert_after(curr, 3);
@@ -108,10 +133,12 @@ int main() {
     double_list_print_forwards(head);
     printf("\n");
 
-    double_list_swap(two, four);
+    double_swap_not_touching(two, five);
 
     printf("\nAfter swap \n");
     double_list_print_forwards(head);
+    printf("\n");
+    double_list_print_backwards(tail);
     printf("\n");
 
 /*
