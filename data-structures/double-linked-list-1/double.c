@@ -78,13 +78,22 @@ void double_list_remove(Node *dead) {
 void double_swap_not_touching(Node *first, Node *second) {
     Node *before_first = first->prev;
     Node *before_second = second->prev;
+
     Node *old_first_next = first->next;
     Node *old_second_next = second->next;
 
+    Node *old_first_prev = first->prev;
+    Node *old_second_prev = second->prev;
+
     second->next = old_first_next;
     first->next = old_second_next;
+
+    second->prev = old_first_prev;
+    first->prev = old_second_prev;
+
     before_first->next = second;
     before_second->next = first;
+
     return;
 }
 
