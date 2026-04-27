@@ -73,6 +73,20 @@ void double_list_remove(Node *dead) {
     free(dead);
 }
 
+void double_list_swap(Node *one, Node *two) {
+    Node *one_prev = one->prev;
+    Node *one_next = one->next;
+    Node *two_prev = two->prev;
+    Node *two_next = two->next;
+
+    one_prev = two;
+    one_next = two;
+    two_prev = one;
+    two_next = one;
+
+    return;
+}
+
 int main() {
     Node *head = double_list_create();
     Node *tail = head->next;
@@ -85,9 +99,22 @@ int main() {
     curr = double_list_insert_after(curr, 4);
     Node *four = curr;
     curr = double_list_insert_after(curr, 3);
+    Node *three = curr;
     curr = double_list_insert_after(curr, 2);
+    Node *two = curr;
     curr = double_list_insert_after(curr, 1);
 
+    printf("Before swap \n");
+    double_list_print_forwards(head);
+    printf("\n");
+
+    double_list_swap(two, four);
+
+    printf("\nAfter swap \n");
+    double_list_print_forwards(head);
+    printf("\n");
+
+/*
     printf("Before removal \n");
     double_list_print_forwards(head);
     printf("\n");
@@ -100,6 +127,7 @@ int main() {
     printf("\n");
     double_list_print_backwards(tail);
     printf("\n");
+*/
 
 /*
     ll = linked_list_insert_after(ll, 6);
