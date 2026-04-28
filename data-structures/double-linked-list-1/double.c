@@ -79,15 +79,12 @@ void double_swap_not_touching(Node *first, Node *second) {
     Node *before_first = first->prev;
     Node *before_second = second->prev;
 
-    Node *old_first_prev = first->prev;
-    Node *old_second_prev = second->prev;
-
-    // Backwards
-    second->prev = old_first_prev;
-    first->prev = old_second_prev;
-
     Node *old_first_next = first->next;
     Node *old_second_next = second->next;
+
+    // Backwards
+    second->prev = before_first;
+    first->prev = before_second;
 
     // Forwards
     second->next = old_first_next;
