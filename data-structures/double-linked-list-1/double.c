@@ -48,7 +48,7 @@ Node* double_list_insert_after(Node *first, int key) {
     return middle;
 }
 
-Node* double_list_print_forwards(Node *head) {
+void double_list_print_forwards(Node *head) {
     Node *curr = head->next;
     while(curr->next != NULL) {
         printf("double_list_print_forwards() %i \n", curr->key);
@@ -56,7 +56,7 @@ Node* double_list_print_forwards(Node *head) {
     }
 }
 
-Node* double_list_print_backwards(Node *tail) {
+void double_list_print_backwards(Node *tail) {
     Node *curr = tail->prev;
     while(curr->prev != NULL) {
         printf("double_list_print_backwards() %i \n", curr->key);
@@ -79,17 +79,19 @@ void double_swap_not_touching(Node *first, Node *second) {
     Node *before_first = first->prev;
     Node *before_second = second->prev;
 
-    Node *old_first_next = first->next;
-    Node *old_second_next = second->next;
-
     Node *old_first_prev = first->prev;
     Node *old_second_prev = second->prev;
 
-    second->next = old_first_next;
-    first->next = old_second_next;
-
+    // Backwards
     second->prev = old_first_prev;
     first->prev = old_second_prev;
+
+    Node *old_first_next = first->next;
+    Node *old_second_next = second->next;
+
+    // Forwards
+    second->next = old_first_next;
+    first->next = old_second_next;
 
     before_first->next = second;
     before_second->next = first;
