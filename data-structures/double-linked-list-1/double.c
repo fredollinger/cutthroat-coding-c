@@ -79,12 +79,18 @@ void double_swap_not_touching(Node *first, Node *second) {
     Node *before_first = first->prev;
     Node *before_second = second->prev;
 
+    Node *after_first = first->next;
+    Node *after_second = second->next;
+
     Node *old_first_next = first->next;
     Node *old_second_next = second->next;
 
     // Backwards
     second->prev = before_first;
     first->prev = before_second;
+ 
+    after_first->prev = second;
+    after_second->prev = first;
 
     // Forwards
     second->next = old_first_next;
@@ -137,7 +143,7 @@ int main() {
     Node *two = curr;
     curr = double_list_insert_after(curr, 1);
 
-    printf("Before swap \n");
+    printf("Before swap 2 and 5 \n");
     double_list_print_forwards(head);
     printf("\n");
 
@@ -148,41 +154,6 @@ int main() {
     printf("\n");
     double_list_print_backwards(tail);
     printf("\n");
-
-/*
-    printf("Before removal \n");
-    double_list_print_forwards(head);
-    printf("\n");
-    double_list_print_backwards(tail);
-
-    double_list_remove(four);
-
-    printf("\nAfter removal \n");
-    double_list_print_forwards(head);
-    printf("\n");
-    double_list_print_backwards(tail);
-    printf("\n");
-*/
-
-/*
-    ll = linked_list_insert_after(ll, 6);
-    ll = linked_list_insert_after(ll, 5);
-    Node *five = ll;
-    ll = linked_list_insert_after(ll, 4);
-    Node *four = ll;
-    ll = linked_list_insert_after(ll, 3);
-    Node *three = ll;
-    ll = linked_list_insert_after(ll, 1);
-    linked_list_insert_before(head, ll, 2);
-
-
-    //linked_list_swap(head, four, three);
-
-    linked_list_print(head);
-    linked_list_reverse_in_place(head);
-    printf("linked list swap \n");
-    linked_list_print(head);
-*/
 
    return 0;
 }
