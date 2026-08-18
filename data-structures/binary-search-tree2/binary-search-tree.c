@@ -52,14 +52,14 @@ void tree_insert(node **head, node **end, int key) {
     }
 }
 
-void tree_print(node *head, node *end) {
-    node *right = head->right;
-    node *left = head->left;
-    while (right != end && left != end) {
-        right = right->right;
-        left = left->left;
-        printf("right [%i] left [%i] \n", right->key, left->key);
+void tree_print(node *head, node *z) {
+    if (head == z || head == NULL) {
+        return;
     }
+    // In-order traversal: left, current, right
+    tree_print(head->left, z);
+    printf("key: %i \n", head->key);
+    tree_print(head->right, z);
 }
 
 node* tree_search(node *head, node *end, int key) {
