@@ -75,7 +75,7 @@ void double_list_remove(Node *dead) {
 
 // swap 2 elements that are not touching
 // TODO Need to add prev as well!
-void double_swap_not_touching(Node *first, Node *second) {
+void double_list_swap_not_touching(Node *first, Node *second) {
     Node *before_first = first->prev;
     Node *before_second = second->prev;
 
@@ -102,33 +102,30 @@ void double_swap_not_touching(Node *first, Node *second) {
     return;
 }
 
-// TODO
-void double_list_swap_touching(Node *one, Node *two) {
-    Node *one_prev = one->prev;
-    // Node *one_next = one->next; // this is just two
+// TODO Need to add prev as well!
+void double_list_swap_touching(Node *first, Node *second) {
+    Node *before_first = first->prev;
+    Node *before_second = second->prev;
 
-    printf("one_prev %i \n", one_prev->key);
-    // printf("one_next %i \n", one_next->key);
+    Node *after_first = first->next;
+    Node *after_second = second->next;
 
-    // Node *two_prev = two->prev; // this is just one
-    Node *two_next = two->next;
+    Node *old_first_next = first->next;
+    Node *old_second_next = second->next;
 
-    // printf("two_prev %i \n", two_prev->key);
-    // printf("two_next %i \n", two_next->key);
+    // Backwards
+    second->prev = before_first;
+    first->prev = before_second;
+ 
+    after_first->prev = second;
+    after_second->prev = first;
 
-    // one_next, two_prev, one->next, two->next, one->prev, two->prev;
+    // Forwards
+    second->next = old_first_next;
+    first->next = old_second_next;
 
-/*
-    one_prev->next = two;
-    // two_prev->next = ??;
-
-    one->next = two_next;
-    two_next->next = one;
-    // two->next = ??;
-    one_prev->prev = two; 
-
-    two_prev->prev = one_prev;
-*/
+    before_first->next = second;
+    before_second->next = first;
 
     return;
 }
@@ -155,7 +152,7 @@ int main() {
     double_list_print_forwards(head);
     printf("\n");
 
-    double_swap_not_touching(two, five);
+    double_list_swap_not_touching(two, five);
     printf("\nAfter swap 2 and 5 \n");
     double_list_print_forwards(head);
     printf("\n");
