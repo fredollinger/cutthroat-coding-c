@@ -1,5 +1,5 @@
 all:
-	gcc double.c -o double
+	clang -g double.c -o double
 	./double
 clean:
 	rm -f double

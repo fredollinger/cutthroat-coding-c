@@ -58,7 +58,7 @@ void double_list_print_forwards(Node *head) {
 
 void double_list_print_backwards(Node *tail) {
     Node *curr = tail->prev;
-    while(curr->prev != NULL) {
+    while(NULL != curr && NULL != curr->prev) {
         printf("double_list_print_backwards() %i \n", curr->key);
         curr = curr->prev;
     }
@@ -102,30 +102,20 @@ void double_list_swap_not_touching(Node *first, Node *second) {
     return;
 }
 
-// TODO Need to add prev as well!
+// TODO
 void double_list_swap_touching(Node *first, Node *second) {
-    Node *before_first = first->prev;
-    Node *before_second = second->prev;
+    // swap next
+    Node *first_prev = first->prev; 
+    Node *second_next = second->next;
 
-    Node *after_first = first->next;
-    Node *after_second = second->next;
+    first_prev->next = second;      // 1
+    first->next = second->next;     // 2
+    second->next = first;           // 3
 
-    Node *old_first_next = first->next;
-    Node *old_second_next = second->next;
-
-    // Backwards
-    second->prev = before_first;
-    first->prev = before_second;
- 
-    after_first->prev = second;
-    after_second->prev = first;
-
-    // Forwards
-    second->next = old_first_next;
-    first->next = old_second_next;
-
-    before_first->next = second;
-    before_second->next = first;
+    // swap prev
+    first->prev = second;
+    second->prev = first_prev;
+    second_next->prev = first;
 
     return;
 }
@@ -134,10 +124,10 @@ int main() {
     Node *head = double_list_create();
     Node *tail = head->next;
    
-    // printf("tail %i \n", tail->key);
-
     Node *curr = double_list_insert_after(head, 7);
+    Node *seven = curr;
     curr = double_list_insert_after(curr, 6);
+    Node *six = curr;
     curr = double_list_insert_after(curr, 5);
     Node *five = curr;
     curr = double_list_insert_after(curr, 4);
@@ -148,22 +138,31 @@ int main() {
     Node *two = curr;
     curr = double_list_insert_after(curr, 1);
 
-    printf("Before swap 3 and 4 \n");
+    printf("\nBefore swap 3 and 4 backwards \n");
     double_list_print_forwards(head);
+    printf("\nBefore swap 3 and 4 backwards \n");
+    double_list_print_backwards(tail);
+
+    double_list_swap_touching(three, four);
+
+    printf("\nAfter swap 3 and 4 backwards \n");
+    double_list_print_forwards(head);
+    printf("\nAfter swap 3 and 4 backwards \n");
+    double_list_print_backwards(tail);
+
+/*
+    double_list_print_forwards(head);
+    printf("\nBefore swap 3 and 4 backwards \n");
+    double_list_print_backwards(tail);
     printf("\n");
 
     double_list_swap_not_touching(two, five);
-    printf("\nAfter swap 2 and 5 \n");
+    printf("\nAfter swap 2 and 5 forwards \n");
     double_list_print_forwards(head);
+    printf("\nAfter swap 2 and 5 backwards \n");
+    double_list_print_backwards(tail);
     printf("\n");
-
-    printf("\nAfter swap 3 and 4 \n");
-    double_list_swap_touching(four, three);
-    double_list_print_forwards(head);
-    printf("\n");
-
-    // TODO
-    // double_list_print_backwards(tail);
+*/
 
    return 0;
 }
