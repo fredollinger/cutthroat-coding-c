@@ -138,17 +138,19 @@ int main() {
     Node *two = curr;
     curr = double_list_insert_after(curr, 1);
 
-    printf("\nBefore swap 3 and 4 backwards \n");
+    printf("\nBefore swap 3 and 4 \n");
     double_list_print_forwards(head);
-    printf("\nBefore swap 3 and 4 backwards \n");
+    printf("\n");
     double_list_print_backwards(tail);
 
     double_list_swap_touching(three, four);
 
+/*
     printf("\nAfter swap 3 and 4 backwards \n");
     double_list_print_forwards(head);
     printf("\nAfter swap 3 and 4 backwards \n");
     double_list_print_backwards(tail);
+*/
 
 /*
     double_list_print_forwards(head);
